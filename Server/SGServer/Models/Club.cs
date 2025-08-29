@@ -1,0 +1,109 @@
+﻿using System.Text;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
+
+namespace SGServer.Models;
+
+public class Club
+{
+    [BsonId]
+    public string? Id { get; set; }
+
+    [BsonElement("Created")]
+    [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+    public DateTime Created { get; set; }
+
+    [BsonElement("Name")]
+    public string? Name { get; set; }
+
+    [BsonElement("Description")]
+    public string? Description { get; set; }
+        
+    [BsonElement("LeaderId")]
+    public string? LeaderId { get; set; }
+    
+    [BsonElement("MemberIds")]
+    public List<string>? MemberIds { get; set; }
+    
+    #region ID Generation
+    
+    private static int _idCounter;
+    private static readonly object CounterLock = new();
+    private static bool _isInitialized;
+    private static IMongoCollection<CounterDocument>? _countersCollection;
+    private const string Base36Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    private const int IdLength = 5;
+    
+    
+    /// <summary>
+    /// Initialize the ID counter from the database to ensure persistence between server restarts
+    /// </summary>
+    /// <param name="mongoClient">MongoDB client instance</param>
+    /// <param name="databaseName">The name of the Database</param>
+    public static void InitializeIdCounter(IMongoClient mongoClient, string databaseName = "SGDatabase")
+    {
+        if (_isInitialized) return;
+
+        lock (CounterLock)
+        {
+            if (_isInitialized) return; // Double-check inside lock
+            
+            var database = mongoClient.GetDatabase(databaseName);
+            _countersCollection = database.GetCollection<CounterDocument>("counters");
+            
+            // Find or create the user ID counter document
+            var filter = Builders<CounterDocument>.Filter.Eq(c => c.Id, "clubId");
+            var counterDoc = _countersCollection.Find(filter).FirstOrDefault();
+            
+            if (counterDoc == null)
+            {
+                // First time initialization - start from 0
+                counterDoc = new CounterDocument { Id = "clubId", SequenceValue = 0 };
+                _countersCollection.InsertOne(counterDoc);
+            }
+            
+            // Initialize the in-memory counter from the database value
+            _idCounter = counterDoc.SequenceValue;
+            _isInitialized = true;
+        }
+    }
+    
+    /// <summary>
+    /// Generate a unique and readable user ID
+    /// </summary>
+    /// <returns>Number encoded in base 36</returns>
+    public static string GenerateClubId()
+    {
+        int newId;
+        lock (CounterLock)
+        {
+            newId = Interlocked.Increment(ref _idCounter);
+            
+            var filter = Builders<CounterDocument>.Filter.Eq(c => c.Id, "clubId");
+            var update = Builders<CounterDocument>.Update.Set(c => c.SequenceValue, newId);
+            
+            _countersCollection?.UpdateOne(filter, update);
+        }
+        
+        var sb = new StringBuilder();
+        do
+        {
+            sb.Insert(0, Base36Chars[newId % 36]);
+            newId /= 36;
+        } while (newId > 0);
+        
+        return sb.ToString().PadLeft(IdLength, Base36Chars[0]);
+    }
+
+    private class CounterDocument
+    {
+        [BsonId] public string Id { get; init; } = string.Empty;
+        
+        [BsonElement("sequence_value")]
+        public int SequenceValue { get; init; }
+    }
+    
+    #endregion ID Generation
+
+}

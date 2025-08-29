@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    # No need to expose the ports, unless you want to debug
+    # MongoDB on its own.
+    #ports:
+    #  - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - sgnetwork
+
+  sgserver:
+    build:
+      context: SGServer
+      dockerfile: Dockerfile
+    container_name: sgserver
+    ports:
+      - "8080:8080" # Expose HTTP port
+      - "8443:8443" # Expose HTTPS port
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MongoDbSettings__ConnectionString=mongodb://mongodb:27017
+      - MongoDbSettings__DatabaseName=SGDatabase
+      - MongoDbSettings__CollectionName=DataItems
+      - ASPNETCORE_URLS=http://+:8080;https://+:8443
+    networks:
+      - sgnetwork
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    #  - ./certs:/app/certs
+
+volumes:
+  mongodb_data:
+
+networks:
+  sgnetwork:
+    driver: bridge

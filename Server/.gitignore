@@ -1,0 +1,6 @@
+.idea
+.vscode
+/certs
+/SGServer/obj
+/SGServer/bin
+!*.csproj
