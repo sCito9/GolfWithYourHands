@@ -1,4 +1,3 @@
-# SocialGamingGroup4
 
 ## Project
 Golf with your Hands
@@ -10,8 +9,6 @@ Christian Lorenz
 Lukas Dörner  
 Felix Timm  
 
-## Project status
-Phase 2 end
 
 ## how to play
 Create new course:
@@ -36,3 +33,7 @@ Chatting:
 Clubs:
     you can join a club by ID or create a new one  
     play against other clubs during a club battle, try to get the best score possible on the 3 random maps.  
+
+
+# important information:
+as it was a simple university project, we have shut down our data server, so the game is currently not playable. If you want to play the game, you have to manually launch the server (the server code is provided in the server folder) and then change the BaseUrl manually in the RemoteBackend.cs class.
