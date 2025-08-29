@@ -1,0 +1,14 @@
+# ninja log v5
+3	1305	7744593809731605	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	57748677d69a73a3
+3	188	7744739164353800	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	651900c16b0bbbdd
+188	341	7744739165820872	C:/Users/felix/Desktop/Unity/SocialGaming/socialgaminggroup4/SocialGamingGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3o1w4465/obj/arm64-v8a/libswappywrapper.so	9dc793f88a194b39
+29	1044	7744593807119386	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e335abd7ccbfc774
+50	939	7744593806056804	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	bc4f27f0687c51d8
+41	969	7744593806346132	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3f2d4770a4a2f700
+12	1075	7744593807412853	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	93b403d276856d76
+20	967	7744593806326039	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	a77a2fafc6a3cd34
+67	1025	7744593806889910	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	54b10fb73dea11a8
+58	1192	7744593808544846	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a84ec8da13380fa1
+1306	1407	7744593810720741	C:/Users/felix/Desktop/Unity/SocialGaming/socialgaminggroup4/SocialGamingGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3o1w4465/obj/arm64-v8a/libgame.so	bc3ed7b6140a9883
+2	190	7745689359945955	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	651900c16b0bbbdd
+191	326	7745689361245088	C:/Users/felix/Desktop/Unity/SocialGaming/socialgaminggroup4/SocialGamingGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3o1w4465/obj/arm64-v8a/libswappywrapper.so	9dc793f88a194b39

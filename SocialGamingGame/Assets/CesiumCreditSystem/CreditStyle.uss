@@ -1,0 +1,11 @@
+.onscreen-credits-scaled {
+    position: absolute;
+    bottom: 10px;
+    left: 10px; /* Changed from 50% */
+    transform: none; /* Removed the horizontal centering */
+    scale: 0.7;
+    transform-origin: bottom left;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}

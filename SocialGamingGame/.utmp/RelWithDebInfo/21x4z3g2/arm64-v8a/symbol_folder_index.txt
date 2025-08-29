@@ -1,0 +1,1 @@
+D:\UnityProjekte\socialgaminggroup4\SocialGamingGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\21x4z3g2\obj\arm64-v8a
